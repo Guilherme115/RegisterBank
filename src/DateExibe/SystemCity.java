@@ -1,40 +1,54 @@
 package DateExibe;
 
 import Dominios.AçogueiroCity;
+import Dominios.BombeiroCity;
 import Dominios.PessoaCity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SystemCity {
-        public ArrayList<PessoaCity> entidades = new ArrayList<>();
-        public HashMap<String, PessoaCity> mapaDePessoas = new HashMap<>();
 
-        public void inicializarEntidades() {
-            PessoaCity pessoa1 = new AçogueiroCity("JUNIOR", "CAIXA");
+    private final List<PessoaCity> entidades = new ArrayList<>();
+    public final Map<String, PessoaCity> mapaDePessoas = new HashMap<>();
+    private final LocalDateTime dataDaTransacao = LocalDateTime.now();
 
-            entidades.add(pessoa1);
-            mapaDePessoas.put(pessoa1.getIdOfUser(), pessoa1); // Relacionando ID com pessoa
+    public void inicializarEntidades() {
+        PessoaCity pessoa1 = new AçogueiroCity("JUNIOR", "CAIXA");
+        PessoaCity pessoa2 = new BombeiroCity("MARIO", "BANCO DO BRASIL");
 
-            InicilizandoArrays.adicionarID(pessoa1.getIdOfUser());
-        }
+        adicionarPessoa(pessoa1);
+        adicionarPessoa(pessoa2);
+    }
 
-        public void exibirEntidades() {
-            InicilizandoArrays.exibirIDs();
-        }
+    private void adicionarPessoa(PessoaCity pessoa) {
+        entidades.add(pessoa);
+        mapaDePessoas.put(pessoa.getIdOfUser(), pessoa);
+        InicilizandoArrays.adicionarID(pessoa.getIdOfUser());
+    }
 
-        // Aqui está a parte que você queria: a condicional usando o ID
-        public void verificarPessoaPorID(String id) {
-            if (mapaDePessoas.containsKey(id)) {
-                PessoaCity encontrada = mapaDePessoas.get(id);
-                System.out.println("Pessoa encontrada:");
-                System.out.println(encontrada); // Chama o toString()
-            } else {
-                System.out.println("ID não encontrado.");
-            }
-        }
+    public void exibirEntidades() {
+        InicilizandoArrays.exibirIDs();
+    }
 
-        public ArrayList<PessoaCity> getEntidades() {
-            return entidades;
+    public void verificarPessoaPorID(String id) {
+        PessoaCity pessoa = mapaDePessoas.get(id);
+        if (pessoa != null) {
+            System.out.println("Pessoa encontrada:");
+            System.out.println(pessoa); // Usa toString()
+        } else {
+            System.out.println("ID não encontrado.");
         }
     }
+
+    public List<PessoaCity> getEntidades() {
+        return entidades;
+    }
+
+    public LocalDateTime getDataDaTransacao() {
+        return dataDaTransacao;
+    }
+}

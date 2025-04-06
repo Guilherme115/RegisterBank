@@ -10,7 +10,7 @@ public class AçogueiroCity extends PessoaCity implements SaldoBancarioCity {
     }
 
 
-    @Override
+
     public void SaldoBancario(){
         SaldoBancarioCity = 0;
     }

@@ -12,14 +12,16 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws SaldoInsuficienteException {
         SystemCity sistema = new SystemCity();
-        DataOfPerson dataOfPerson = new DataOfPerson();
+
+
+      sistema.exibirEntidades();
 
         sistema.inicializarEntidades();
-
-        // Digamos que você pegou o ID da primeira pessoa:
-        String id = sistema.getEntidades().get(0).getIdOfUser();
-
-        sistema.verificarPessoaPorID(id);
+        DataOfPerson dataOfPerson = new DataOfPerson(sistema);
+        dataOfPerson.calcularSaldo();
+        for (PessoaCity entidade : sistema.getEntidades()) {
+            sistema.verificarPessoaPorID(entidade.getIdOfUser());
+        }
         dataOfPerson.fazerTransferencia();
 
     }
